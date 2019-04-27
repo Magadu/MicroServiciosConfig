@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: microservice
+  cloud:
+    config:
+      name: ${spring.application.name}
+      uri: http://localhost:8888
+#      fail-fast: true
+#      password: ${CONFIG_SERVICE_PASSWORD}
+#      username: user
+
+feign.hystrix.enabled: true
+
+management.endpoints.web.base-path: /actuator
+management.endpoints.web.exposure.include: "*"

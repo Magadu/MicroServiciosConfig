@@ -1,0 +1,52 @@
+tpd:
+  p1: 8761
+  p2: 8762
+ 
+management:
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      base-path: /
+      # By default, only 'health' and 'info' are accessible via web
+      exposure:
+        include: '*'
+ 
+---
+spring:
+  profiles: p1
+eureka:
+  instance:
+    # See blog post for details, modify /etc/hosts
+    preferIpAddress: true
+    hostname: eureka-p1
+    # Either this one or the spring boot name must be the same
+    # (it works without setting it too, using the alias UNKNOWN)
+    appname: eureka-cluster
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:${tpd.p2}/eureka
+    register-with-eureka: true
+    fetch-registry: true
+server:
+  port: ${tpd.p1}
+ 
+---
+spring:
+  profiles: p2
+eureka:
+  instance:
+    preferIpAddress: true
+    hostname: eureka-p2
+    appname: eureka-cluster
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:${tpd.p1}/eureka
+    register-with-eureka: true
+    fetch-registry: true
+server:
+  port: ${tpd.p2}

@@ -1,0 +1,13 @@
+server:
+  port: 8888
+  
+spring:
+  cloud:
+    config:
+      server:
+        git:
+#          uri: file:///D:/rodrigo/microserviices/extra/repo/
+          uri: https://github.com/RodrigoPerezCruz/microservice-config.git
+#          uri: https://gitlab.com/RodrigoPerezCruz/microservice-config.git
+
+ 
